@@ -8,7 +8,7 @@ public class DemoApplication2 {
 
     @RequestMapping("/")
     public String home() {
-        return "Hello Spring Boot with Docker";
+        return "Spring Boot con Docker en el proyecto de Vadym Urvachov";
     }
 
 }

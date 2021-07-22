@@ -1,7 +1,7 @@
 version: '3'
 services:
     web:
-      image: appspringboot
+      image: spring
       build: .
       ports:
         - "5000:8080"
