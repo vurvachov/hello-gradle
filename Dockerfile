@@ -18,7 +18,7 @@
 FROM gradle:7.1.1-jdk11 AS base
 WORKDIR /opt/hello-gradle
 COPY ./ ./
-RUN ./gradle/assemble
+RUN ./gradlew assemble
 
 # EJECUCIÓN
 
