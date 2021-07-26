@@ -6,19 +6,24 @@
 #COPY ${JAR_FILE} app.jar
 #ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 #CMD java -jar app.jar
-
 # ------------------------------------------------------------------------------------------------------------------
-
-#FROM openjdk:11
+#Al crear esta imagen pesa 165 MB
+#FROM adoptopenjdk/openjdk11:alpine-jre
 #ARG JAR_FILE=build/libs/demo-0.0.1-SNAPSHOT.jar
 #COPY ${JAR_FILE} app.jar
 #CMD java -jar app.jar
 
-# ------------------------------------------------------------------------------------------------------------------
+# CONSTRUCCIÓN
 
-#Al crear esta imagen pesa 165 MB
-FROM adoptopenjdk/openjdk11:alpine-jre
-ARG JAR_FILE=build/libs/demo-0.0.1-SNAPSHOT.jar
-COPY ${JAR_FILE} app.jar
-CMD java -jar app.jar
+FROM adoptopenjdk/openjdk11:alpine-jre AS base
+WORKDIR /opt/hello-gradle
+COPY ./ ./
+RUN ./gradle/assemble
+
+# EJECUCIÓN
+
+FROM gradle:7.1.1-jdk11
+WORKDIR /opt/hello-gradle
+COPY --from=base /opt/hello-gradle/build/libs/demo-0.0.1-SNAPSHOT.jar ./
+CMD java -jar demo-0.0.1-SNAPSHOT.jar ./
 
