@@ -4,17 +4,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'echo \'Building..\''
+                sh '''docker-compose build
+                docker image tag alpine-jre hello-gradle:MAIN-1.0.${BUILD_NUMBER}'''
             }
         }
-        stage('Test') {
+         stage('Deploy') {
             steps {
-                sh 'echo \'Testing..\''
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'echo \'Deploying..\''
+                sh '''docker-compose build                
+                '''docker-compose up -d'''
             }
         }
     }
