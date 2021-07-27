@@ -13,7 +13,7 @@ pipeline {
          stage('Deploy') {
             steps {
                  echo '\033[34mDesplegando\033[0m \033[33mla\033[0m \033[35maplicación\033[0m'
-                sh '''archiveArtifacts artifacts: '**/*.jar','''
+                archiveArtifacts artifacts: '**/*.jar'
             }
         }
     }
