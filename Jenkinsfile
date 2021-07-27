@@ -1,12 +1,12 @@
 pipeline {
     agent any
-     options {
+    options {
         ansiColor('xterm')
     }
     stages {
         stage('Build') {
             steps {
-                echo ' \ 0 33 [34mConstruyendo \ 0 33 [0m \ 0 33 [33mcolorido \ 0 33 [0m \ 0 33 [35mimagen \ 0 33 [0m '
+                echo '\033[34mConstruyendo\033[0m\033[33mcolorido\033[0m\033[35mimagen\033[0m'
                 sh '''docker-compose build
                 docker image tag alpine-jre hello-gradle:MAIN-1.0.${BUILD_NUMBER}'''
             }
