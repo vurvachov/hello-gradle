@@ -10,10 +10,16 @@ pipeline {
                 sh '''./gradlew assemble'''
             }
         }
-         stage('Deploy') {
+        stage('Archive') {
             steps {
-                 echo '\033[34mDesplegando\033[0m \033[33mla\033[0m \033[35maplicación\033[0m'
+                echo '\033[34mDesplegando\033[0m \033[33mla\033[0m \033[35maplicación\033[0m'
                 archiveArtifacts artifacts: 'build/libs/*.jar'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo '\033[34mEjecutando\033[0m \033[33mla\033[0m \033[35maplicación\033[0m'
+                sh '''./gradlew bootRun''' 
             }
         }
     }
